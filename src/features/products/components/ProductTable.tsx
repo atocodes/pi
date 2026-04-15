@@ -15,26 +15,24 @@ type Props = {
   products: ProductWithRelation[];
   onAddProducts?: () => void;
   onEdit?: (product: Product) => void;
-  onView?: (product: Product) => void;
 };
 
 export function ProductTable({
   products,
   onAddProducts,
-  onView,
   onEdit,
 }: Props) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 py-3.5">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold">Products</h2>
         <div className="flex gap-2">
-          <Button>Receive </Button>
-          <Button>Issue </Button>
+          <Button>Receive</Button>
+          <Button>Issue</Button>
           <Button onClick={onAddProducts}>Add Product</Button>
         </div>
       </div>
-      <Table className="w-full">
+      <Table className="">
         {/* <TableCaption>A List of your products</TableCaption> */}
         <TableHeader>
           <TableRow>
@@ -74,7 +72,6 @@ export function ProductTable({
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => onView?.(product)}
                   >
                     <Link href={`/products/${product.id}`}>View</Link>
                   </Button>

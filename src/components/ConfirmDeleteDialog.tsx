@@ -5,16 +5,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Product } from "../types";
+import { Product } from "../features/products/types";
 import { Button } from "@/components/ui/button";
+import { Customer } from "@/features/cutomers/types";
 
-export default function ConfirmDeleteProduct({
+export default function ConfirmDeleteDailog({
   open,
-  product,
+  data,
   onOpenChange,
   onDelete,
 }: {
-  product: Product;
+  data: Product | Customer | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onDelete: (id: string) => Promise<void>;
@@ -23,12 +24,12 @@ export default function ConfirmDeleteProduct({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Confirm Delete Product "{product.name}"</DialogTitle>
+          <DialogTitle>Confirm Delete "{data?.name}"</DialogTitle>
         </DialogHeader>
-        <p>Are you sure you want to delete the product</p>
+        <p>Are you sure you want to delete</p>
         <DialogFooter>
           <Button onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button onClick={() => onDelete(product.id!)}>Delete</Button>
+          <Button onClick={() => onDelete(data?.id!)}>Delete</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

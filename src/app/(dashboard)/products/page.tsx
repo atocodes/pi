@@ -14,8 +14,6 @@ export default function InventoryPage() {
     loading,
     error,
     createProduct,
-    deleteProduct,
-    refetch,
     updateProduct,
   } = useProducts();
   const [open, setOpen] = useState(false);
@@ -39,7 +37,7 @@ export default function InventoryPage() {
   if (loading) return <p>Loading</p>;
   if (error) return <p>Error: {error}</p>;
   return (
-    <div className="w-screen p-3.5">
+    <div className="lg:md-5 lg:w-full ">
       <ProductTable
         products={products}
         onAddProducts={handleAdd}

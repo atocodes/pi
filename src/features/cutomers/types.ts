@@ -1,15 +1,18 @@
 import { CustomerCredit } from "../customer_creadits/types";
 import { MovementHistory } from "../movement_history/types";
 
-export interface Customer {
-  id: number;
+export type Customer = {
+  id: string;
   name: string;
-  phone?: string | null;
-  address?: string | null;
+  phone: string | null;
+  address: string | null;
+  contactName?: string | null;
 
-  credits?: CustomerCredit[];
-  movements?: MovementHistory[];
+  tinNumber?: string | null;
+
+  credits: CustomerCredit[];
+  movements: MovementHistory[];
 
   createdAt: Date;
   updatedAt: Date;
-}
+};

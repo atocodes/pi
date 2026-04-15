@@ -1,3 +1,4 @@
+import { Batch } from "../batches";
 
 export interface Supplier {
   id: number;
