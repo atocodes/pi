@@ -25,17 +25,12 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  InputGroupTextarea,
 } from "@/components/ui/input-group";
-import { Unit } from "../../../../generated/prisma/enums";
 import { Product } from "../types";
 import { productSchema, unitValues } from "../schemas/product.schema";
 
-
-
 type FormValues = z.infer<typeof productSchema>;
 
-// ===== Component =====
 export function ProductModal({
   open,
   onOpenChange,

@@ -33,10 +33,13 @@ enum AccountRole {
 }
 
 model Customer {
-  id      String  @id @default(uuid())
-  name    String
-  phone   String? @unique
-  address String?
+  id        String  @id @default(uuid())
+  name      String
+  phone     String? @unique
+  address   String?
+  contactName String?
+
+  tinNumber String? @unique
 
   credits   CustomerCredit[]
   movements MovementHistory[]

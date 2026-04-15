@@ -8,6 +8,7 @@ import {
   Package,
   Settings,
   Truck,
+  Users,
 } from "lucide-react";
 import {
   Sidebar,
@@ -39,7 +40,8 @@ export default function AppSidebar() {
   const items = [
     { title: "Dashboard", url: "/", icon: LayoutDashboardIcon },
     { title: "Products", url: "/products", icon: Package },
-    { title: "Customers", url: "#", icon: Boxes },
+    { title: "Batches", url: "/batches", icon: Boxes },
+    { title: "Customers", url: "/customers", icon: Users },
     { title: "Suppliers", url: "#", icon: Truck },
     { title: "Movement History", url: "#", icon: History },
     { title: "Customer Creadits", url: "#", icon: HandCoins },

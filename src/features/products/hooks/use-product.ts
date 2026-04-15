@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import { Product, ProductWithRelation } from "../types";
 import { useRouter } from "next/navigation";
-import { editProduct, removeProduct } from "../services/products.service";
+import {
+  editProduct,
+  findSingleProduct,
+  removeProduct,
+} from "../services/products.service";
 export function useProduct(id: string) {
   const [product, setProduct] = useState<ProductWithRelation | null>(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +17,7 @@ export function useProduct(id: string) {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/products/${id}`);
+      const res = await findSingleProduct(id);
       const data = await res.json();
 
       if (res.ok) {
