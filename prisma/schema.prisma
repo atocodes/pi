@@ -1,0 +1,191 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id             String      @id @default(uuid())
+  fistName       String
+  lastName       String?
+  email          String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt()
+  username       String      @unique
+  role           AccountRole
+  passwordHash   String
+  createdLocally Boolean
+}
+
+enum AccountRole {
+  STAFF
+  MANAGER
+  ADMIN
+  DEVELOPER
+}
+
+model Customer {
+  id      String  @id @default(uuid())
+  name    String
+  phone   String? @unique
+  address String?
+
+  credits   CustomerCredit[]
+  movements MovementHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Supplier {
+  id      String  @id @default(uuid())
+  name    String
+  phone   String?
+  email   String?
+  address String?
+
+  tinNumber String? @unique // Tax Identification Number
+
+  // Financial tracking
+  balance Float @default(0)
+
+  batches      Batch[]
+  transactions SupplierTransaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SupplierTransaction {
+  id         String @id @default(uuid())
+  supplierId String
+
+  type      SupplierTransactionType
+  amount    Float
+  reference String? // invoice number, receipt, etc.
+  note      String?
+
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+enum SupplierTransactionType {
+  PURCHASE // you bought stock
+  PAYMENT // you paid supplier
+  RETURN // returned items
+}
+
+model Product {
+  id      String  @id @default(uuid())
+  name    String
+  sku     String?
+  barcode String? @unique
+
+  category String?
+  unit     Unit? // tablet, bottle, etc.
+
+  sellingPrice Float
+  description  String?
+  stock        Int     @default(0)
+
+  lowStockAlert Int?
+
+  batches   Batch[]
+  movements MovementHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Unit {
+  PIECE
+  BOX
+  PACK
+  ROLL
+  TUBE
+  BAG
+  CARTON
+  BOTTLE
+  PALLET
+}
+
+model Batch {
+  id         String @id @default(uuid())
+  productId  String
+  supplierId String
+
+  batchNumber   String?
+  invoiceNumber String?
+
+  quantity     Int
+  remainingQty Int
+
+  costPrice    Float
+  sellingPrice Float
+
+  manufactureDate DateTime?
+  expiryDate      DateTime
+
+  product  Product  @relation(fields: [productId], references: [id])
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+
+  movements MovementHistory[]
+
+  createdAt DateTime @default(now())
+}
+
+model CustomerCredit {
+  id         String @id @default(uuid())
+  customerId String
+
+  amount     Float
+  paidAmount Float   @default(0)
+  isPaid     Boolean @default(false)
+
+  reference String? // receipt / invoice
+  note      String?
+
+  dueDate DateTime?
+
+  customer Customer @relation(fields: [customerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MovementHistory {
+  id String @id @default(uuid())
+
+  productId  String
+  batchId    String?
+  customerId String?
+
+  type     MovementType
+  quantity Int
+
+  reference String? // invoice / receipt
+  note      String?
+
+  product  Product   @relation(fields: [productId], references: [id])
+  batch    Batch?    @relation(fields: [batchId], references: [id])
+  customer Customer? @relation(fields: [customerId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+enum MovementType {
+  SALE
+  PURCHASE
+  RETURN
+  ADJUSTMENT
+  EXPIRED
+}
