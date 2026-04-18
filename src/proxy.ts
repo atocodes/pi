@@ -31,7 +31,7 @@ async function createDevUser() {
     data: {
       fistName: "ATO",
       createdLocally: true,
-      passwordHash: await bcrypt.hash("12345678", SALTROUND!),
+      passwordHash: await bcrypt.hash("12345678", parseInt(SALTROUND!)),
       role: AccountRole.STAFF,
       username: "atocodes",
     },

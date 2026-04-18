@@ -6,19 +6,13 @@ import {
   Product,
   ProductModal,
 } from "@/features/products";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function InventoryPage() {
-  const {
-    products,
-    loading,
-    error,
-    createProduct,
-    updateProduct,
-  } = useProducts();
+  const { products, loading, error, createProduct, updateProduct, setFilters } =
+    useProducts();
   const [open, setOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] =
-    useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const handleAdd = () => {
     setSelectedProduct(null);
@@ -34,14 +28,16 @@ export default function InventoryPage() {
     setOpen(true);
   };
 
-  if (loading) return <p>Loading</p>;
+  // if (loading) return <p>Loading</p>;
   if (error) return <p>Error: {error}</p>;
+ 
   return (
     <div className="lg:md-5 lg:w-full ">
       <ProductTable
         products={products}
         onAddProducts={handleAdd}
         onEdit={handleEdit}
+        filterProduct={setFilters}
       />
 
       <ProductModal

@@ -10,7 +10,9 @@ export const createNewProduct = async (data: any): Promise<Response> =>
 export const findSingleProduct = async (id: string) =>
   fetch(`/api/products/${id}`);
 
-export const getProducts = async () => fetch("/api/products");
+export const getProducts = async (params?: URLSearchParams) => {
+  return fetch(`/api/products?${params?.toString()}`);
+};
 
 export const editProduct = (data: any, id: string | undefined) =>
   fetch(`/api/products/${id}`, {

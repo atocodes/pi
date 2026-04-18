@@ -1,11 +1,13 @@
 import { productRepositories } from "../repositories/product.repo";
 import { Product } from "../../../features/products/types";
+import { SearchProductValues } from "@/features/products/schemas/product.schema";
 
 // Real Logic lives here
 
 export const productService = {
-  getProducts: async () => {
-    return productRepositories.findAll();
+  getProducts: async (params?: SearchProductValues) => {
+    if (params?.order) params.order = params?.order.toLowerCase();
+    return productRepositories.findAll(params);
   },
 
   getProduct: async (id: string) => {

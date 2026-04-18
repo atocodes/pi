@@ -1,11 +1,17 @@
+import { SearchProductValues } from "@/features/products/schemas/product.schema";
 import { productService } from "@/server/products/services/product.service";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
-    const products = await productService.getProducts();
+    const { searchParams } = new URL(req.url);
+    const params: SearchProductValues = {
+      ...Object.fromEntries(searchParams.entries()),
+    };
+    const products = await productService.getProducts(params);
     return NextResponse.json(products);
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { message: "Failed to get products : " + error },
       { status: 500 },
@@ -29,4 +35,3 @@ export async function POST(req: Request) {
     );
   }
 }
-

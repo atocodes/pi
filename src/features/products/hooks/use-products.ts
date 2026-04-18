@@ -7,16 +7,30 @@ import {
   getProducts,
   removeProduct,
 } from "../services/products.service";
+import { SearchProductValues } from "../schemas/product.schema";
+import { convertSortEnumToCamelCase } from "@/lib/utils";
 
 export function useProducts() {
   const [products, setProducts] = useState<ProductWithRelation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [filters, setFilters] = useState<SearchProductValues | undefined>();
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (filterValues?: SearchProductValues) => {
     try {
       setLoading(true);
-      const res = await getProducts();
+      const params = new URLSearchParams();
+      if (filterValues) {
+        let sb: string | undefined;
+        if (filterValues.sortBy) {
+          sb = convertSortEnumToCamelCase(filterValues.sortBy);
+          params.set("sortBy", sb);
+        }
+        if (filterValues.order) params.set("order", filterValues.order);
+        if (filterValues.q) params.set("q", filterValues.q);
+      }
+
+      const res = await getProducts(params);
       const data = await res.json();
 
       setProducts(data);
@@ -28,8 +42,12 @@ export function useProducts() {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    const delay = setTimeout(() => {
+      fetchProducts(filters);
+    }, 300);
+
+    return () => clearTimeout(delay);
+  }, [filters]);
 
   const createProduct = async (data: any) => {
     const res = await createNewProduct(data);
@@ -82,5 +100,6 @@ export function useProducts() {
     updateProduct,
     deleteProduct,
     refetch: fetchProducts,
+    setFilters,
   };
 }

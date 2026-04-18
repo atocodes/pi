@@ -16,3 +16,12 @@ export const productSchema = z.object({
   lowStockAlert: z.coerce.number().nullable().optional(),
   stock: z.coerce.number().min(0),
 });
+
+export const searchProductSchema = z.object({
+  q: z.string().nullable().optional(),
+  sortBy: z.string().nullable().optional(),
+  order: z.string().nullable().optional(),
+  belowStokoutThreshold: z.boolean().nullable().optional(),
+});
+
+export type SearchProductValues = z.infer<typeof searchProductSchema>;

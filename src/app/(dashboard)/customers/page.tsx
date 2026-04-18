@@ -14,7 +14,6 @@ export default function CustomersPage() {
   const [open, setOpen] = useState<boolean>(false);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const onOpenChange = () => {
-    console.log(open);
     setOpen(!open);
   };
 

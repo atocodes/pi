@@ -12,7 +12,7 @@ import { ProductWithRelation } from "../types";
 import { Button } from "@/components/ui/button";
 import { Info } from "@/components/Info";
 import { MovementDetailTable } from "@/features/movement_history";
-import { BatchesDetailTable } from "@/features/batches";
+import { BatchesTable, BatchWithRelation } from "@/features/batches";
 
 export function ProductView({
   product,
@@ -27,9 +27,8 @@ export function ProductView({
 }) {
   const isLowStock =
     product.lowStockAlert && product.stock <= product.lowStockAlert;
-console.log(isLowStock,product.lowStockAlert,product.stock)
   return (
-    <div className="p-4 md:p-6">
+    <div className="flex flex-col gap-5 p-4 md:p-6">
       {/* HEADER */}
       <div className="flex flex-row justify-between md:flex-row md:items-center md:justify-between gap-3">
         <h1 className="text-xl md:text-2xl font-bold">{product.name}</h1>
@@ -47,7 +46,7 @@ console.log(isLowStock,product.lowStockAlert,product.stock)
       </div>
 
       {/* PRODUCT INFO */}
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <Card className="rounded-2xl shadow-sm">
           <CardHeader>
             <CardTitle>Product Details</CardTitle>
@@ -99,7 +98,11 @@ console.log(isLowStock,product.lowStockAlert,product.stock)
       </div>
 
       {/* BATCHES */}
-      <BatchesDetailTable batches={product.batches} />
+      <BatchesTable
+        batches={product.batches}
+        display={false}
+        product={product}
+      />
 
       {/* MOVEMENTS */}
       <MovementDetailTable movements={product.movements} />
