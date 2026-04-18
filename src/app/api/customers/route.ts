@@ -4,10 +4,8 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   try {
     const customers = await customerService.getCustomers();
-    console.log(customers);
     return NextResponse.json(customers, { status: 200 });
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { message: "Failed to get customers " + error },
       { status: 500 },

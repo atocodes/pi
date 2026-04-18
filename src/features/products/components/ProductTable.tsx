@@ -10,17 +10,22 @@ import {
 import { Product, ProductWithRelation } from "../types";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { SearchProductsForm } from "./SearchProductsForm";
+import { Separator } from "@/components/ui/separator";
+import { SearchProductValues } from "../schemas/product.schema";
 
 type Props = {
   products: ProductWithRelation[];
   onAddProducts?: () => void;
   onEdit?: (product: Product) => void;
+  filterProduct?: (value: SearchProductValues) => void;
 };
 
 export function ProductTable({
   products,
   onAddProducts,
   onEdit,
+  filterProduct,
 }: Props) {
   return (
     <div className="space-y-4 py-3.5">
@@ -32,6 +37,8 @@ export function ProductTable({
           <Button onClick={onAddProducts}>Add Product</Button>
         </div>
       </div>
+      <SearchProductsForm onSearch={filterProduct} />
+      <Separator />
       <Table className="">
         {/* <TableCaption>A List of your products</TableCaption> */}
         <TableHeader>
@@ -69,10 +76,7 @@ export function ProductTable({
                     : "-"}
                 </TableCell>
                 <TableCell className="flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                  >
+                  <Button size="sm" variant="outline">
                     <Link href={`/products/${product.id}`}>View</Link>
                   </Button>
                   <Button size="sm" onClick={() => onEdit?.(product)}>

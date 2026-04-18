@@ -1,6 +1,4 @@
-import { MovementHistory } from "../movement_history";
-import { Product } from "../products";
-import { Supplier } from "../suppliers";
+import { Prisma } from "../../../generated/prisma/browser";
 
 export type Batch = {
   id: string;
@@ -17,14 +15,24 @@ export type Batch = {
   costPrice: number;
   sellingPrice: number;
 
-  manufactureDate?: Date | null;
+  manufactureDate: Date;
   expiryDate: Date;
-
-  product: Product;
-  supplier: Supplier;
-
-  movements: MovementHistory[];
 
   createdAt: Date;
 };
 
+export type BatchWithRelation = Prisma.BatchGetPayload<{
+  include: {
+    product: true;
+    movements: true;
+    supplier: true;
+  };
+}>;
+
+export type SearchBatchParms = {
+  expiredOnly?: boolean | undefined;
+  expiringSoonOnly?: boolean | undefined;
+  name?: string | undefined;
+  order?: string | undefined;
+  sortBy?: string | undefined;
+};

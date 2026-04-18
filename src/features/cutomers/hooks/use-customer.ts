@@ -10,7 +10,6 @@ import {
 import { useRouter } from "next/navigation";
 
 export function useCustomer(id: string) {
-  console.log(id);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);

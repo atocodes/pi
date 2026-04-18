@@ -21,7 +21,6 @@ export async function POST(req: Request) {
 
     await (await cookies()).set(LOGINTOKEN, user.id);
 
-    console.log(user);
     return NextResponse.json({
       message: "Login successful",
       user,

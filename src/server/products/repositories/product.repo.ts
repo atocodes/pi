@@ -1,10 +1,31 @@
 import { prisma } from "@/lib/prisma";
 import { Product, ProductWithRelation } from "../../../features/products/types";
+import { SearchProductValues } from "@/features/products/schemas/product.schema";
 
 export const productRepositories = {
-  findAll: async (): Promise<ProductWithRelation[]> => {
+  findAll: async (
+    params?: SearchProductValues,
+  ): Promise<ProductWithRelation[]> => {
     return prisma.product.findMany({
-      orderBy: { createdAt: "desc" },
+      where: params?.q
+        ? {
+            OR: [
+              {
+                name: {
+                  contains: params.q,
+                },
+              },
+              {
+                sku: {
+                  contains: params.q,
+                },
+              },
+            ],
+          }
+        : undefined,
+      orderBy: params?.sortBy
+        ? { [params.sortBy as string]: params.order }
+        : undefined,
       include: {
         batches: true,
         movements: true,

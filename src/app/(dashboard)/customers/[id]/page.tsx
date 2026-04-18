@@ -36,7 +36,8 @@ export default function CustomerPage() {
       />
 
       <ConfirmDeleteDailog
-        data={customer!}
+        id={customer?.id!}
+        name={customer?.name!}
         onDelete={removeCustomer}
         onOpenChange={handleOpenDeleteDialog}
         open={openDeleteDialog}

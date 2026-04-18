@@ -24,7 +24,7 @@ export default function Page() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   if (loading) return <p>Loading</p>;
-  
+
   if (error) return <ErrorDialog error={error} href="/products" />;
   const handleOpen = () => {
     setOpen(!open);
@@ -35,7 +35,7 @@ export default function Page() {
   };
 
   return (
-    <>
+    <div className="w-full">
       <ProductView
         product={product!}
         onCreateBatch={() => {}}
@@ -53,9 +53,10 @@ export default function Page() {
       <ConfirmDeleteDailog
         open={openDeleteDialog}
         onOpenChange={handleOpenDeleteDialog}
-        data={product!}
+        id={product?.id!}
+        name={product?.name!}
         onDelete={deleteProduct}
       />
-    </>
+    </div>
   );
 }

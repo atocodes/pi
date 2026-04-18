@@ -33,10 +33,10 @@ enum AccountRole {
 }
 
 model Customer {
-  id        String  @id @default(uuid())
-  name      String
-  phone     String? @unique
-  address   String?
+  id          String  @id @default(uuid())
+  name        String
+  phone       String? @unique
+  address     String?
   contactName String?
 
   tinNumber String? @unique
@@ -60,7 +60,7 @@ model Supplier {
   // Financial tracking
   balance Float @default(0)
 
-  batches      Batch[]
+  // batches      Batch[]
   transactions SupplierTransaction[]
 
   createdAt DateTime @default(now())
@@ -122,28 +122,29 @@ enum Unit {
 }
 
 model Batch {
-  id         String @id @default(uuid())
-  productId  String
-  supplierId String
+  id        String @id @default(uuid())
+  productId String
+  supplierId String?
 
   batchNumber   String?
   invoiceNumber String?
 
-  quantity     Int
-  remainingQty Int
+  quantity     Int @default(0)
+  remainingQty Int @default(0)
 
-  costPrice    Float
-  sellingPrice Float
+  costPrice    Float @default(0)
+  sellingPrice Float @default(0)
 
-  manufactureDate DateTime?
+  manufactureDate DateTime
   expiryDate      DateTime
 
-  product  Product  @relation(fields: [productId], references: [id])
-  supplier Supplier @relation(fields: [supplierId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+  // supplier Supplier @relation(fields: [supplierId], references: [id])
 
   movements MovementHistory[]
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CustomerCredit {

@@ -21,7 +21,6 @@ type Props = {
 };
 
 export function CustomerView({ customer, onEdit, onDelete }: Props) {
-  console.log(customer?.name);
   let dueCredites = 0;
   let outstandingCreadit = 0;
   if (customer && customer.credits)
@@ -34,7 +33,7 @@ export function CustomerView({ customer, onEdit, onDelete }: Props) {
     });
   return (
     <div className="p-4 md:p-6 space-y-6 w-full">
-      <div className="flex flex-row justify-between md:flex-col md:items-center md:justify-between gap-3">
+      <div className="flex justify-between">
         <h1 className="text-xl md:text-2xl font-bold">
           {customer?.name ?? ""}
         </h1>
