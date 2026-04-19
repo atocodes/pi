@@ -1,3 +1,4 @@
+import { formatSnakeCaseToText } from "./utils";
 
 export const LOGINTOKEN = "login-token";
 export const USERID = "user-id";
@@ -14,13 +15,18 @@ export enum SortBy {
   Supplier_Id = "supplierId",
 }
 
-export const sortValues = Object.keys(SortBy).map((s) => {
-  const splited = s.split("_");
-  if (splited.length > 0) {
-    return splited.join(" ");
-  }
-  return s;
-}) as [string];
+export enum SupplierSortByKeys {
+  Created_At = "createdAt",
+  Name = "name",
+  TIN_Number = "tinNumber",
+}
+
+export const sortValues = Object.keys(SortBy).map(formatSnakeCaseToText) as [
+  string,
+];
+export const supplierSortValues = Object.keys(SupplierSortByKeys).map(
+  formatSnakeCaseToText,
+) as [string];
 
 export enum OrderBy {
   Desc = "desc",
@@ -28,3 +34,8 @@ export enum OrderBy {
 }
 
 export const orderValues = Object.keys(OrderBy) as [string];
+
+// api constants
+export const headers = {
+  "Content-Type": "application/json",
+};

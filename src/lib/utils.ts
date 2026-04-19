@@ -35,3 +35,11 @@ export function convertSortEnumToCamelCase(value: string): string {
 
   return sb;
 }
+
+export function formatSnakeCaseToText(s:string) {
+  const splited = s.split("_");
+  if (splited.length > 0) {
+    return splited.join(" ");
+  }
+  return s;
+}

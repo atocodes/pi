@@ -1,7 +1,8 @@
+import { headers } from "@/lib/constants";
+import { SearchValues } from "../schemas/schemas";
+import { convertSortEnumToCamelCase } from "@/lib/utils";
+
 const BASEURL = "/api/batches";
-const headers = {
-  "Content-Type": "application/json",
-};
 
 export const newBatch = async (data: any, product: any): Promise<any> => {
   data.productId = product.id;
@@ -12,17 +13,34 @@ export const newBatch = async (data: any, product: any): Promise<any> => {
     body: JSON.stringify(data),
     headers,
   });
-  return await res.json();
+  const batch = await res.json();
+  if (!res.ok) throw new Error(batch.message);
+  return batch;
 };
 
-export const getBatches = async (params?: URLSearchParams): Promise<any> => {
+export const getBatches = async (filters?: SearchValues): Promise<any> => {
+  const params = new URLSearchParams();
+  if (filters) {
+    let sb: string | undefined;
+    if (filters.sortBy) sb = convertSortEnumToCamelCase(filters.sortBy);
+    if (sb) params.set("sortBy", sb);
+    if (filters.order) params.set("order", filters.order.toLowerCase());
+    if (filters.name == undefined || filters.name.trim() == "")
+      params.delete("name");
+    if (filters.name && filters.name.trim() != "")
+      params.set("name", filters.name);
+  }
   const res = await fetch(`${BASEURL}?${params?.toString()}`);
-  return await res.json();
+  const batches = await res.json();
+  if (!res.ok) throw new Error(batches.message);
+  return batches;
 };
 
 export const findSingleBatch = async (id: string): Promise<any> => {
   const res = await fetch(`${BASEURL}/${id}`);
-  return await res.json();
+  const batch = await res.json();
+  if (!res.ok) throw new Error(batch.message);
+  return batch;
 };
 
 export const editBatch = async (data: any, id: string): Promise<any> => {
@@ -31,10 +49,15 @@ export const editBatch = async (data: any, id: string): Promise<any> => {
     body: JSON.stringify(data),
     headers,
   });
-  return await res.json();
+
+  const batch = await res.json();
+  if (!res.ok) throw new Error(batch.message);
+  return batch;
 };
 
 export const deleteBatch = async (id: string): Promise<any> => {
   const res = await fetch(`${BASEURL}/${id}`, { method: "DELETE" });
-  return await res.json();
+  const batch = await res.json();
+  if (!res.ok) throw new Error(batch.message);
+  return batch;
 };
