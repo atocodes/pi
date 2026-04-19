@@ -2,11 +2,8 @@ import {
   Boxes,
   HandCoins,
   History,
-  Home,
-  Inbox,
   LayoutDashboardIcon,
   Package,
-  Settings,
   Truck,
   Users,
 } from "lucide-react";
@@ -16,25 +13,14 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "./ui/sidebar";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { ThemeToggle } from "./theme-toggle-btn";
 
 export default function AppSidebar() {
   const items = [
@@ -42,9 +28,9 @@ export default function AppSidebar() {
     { title: "Products", url: "/products", icon: Package },
     { title: "Batches", url: "/batches", icon: Boxes },
     { title: "Customers", url: "/customers", icon: Users },
-    { title: "Suppliers", url: "#", icon: Truck },
-    { title: "Movement History", url: "#", icon: History },
-    { title: "Customer Creadits", url: "#", icon: HandCoins },
+    { title: "Suppliers", url: "/suppliers", icon: Truck },
+    { title: "Movement History", url: "/movementHistory", icon: History },
+    { title: "Customer Creadits", url: "/customerCreadits", icon: HandCoins },
   ];
   return (
     <Sidebar>

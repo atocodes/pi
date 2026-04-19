@@ -3,16 +3,10 @@
 import ConfirmDeleteDailog from "@/components/ConfirmDeleteDialog";
 import ErrorDialog from "@/components/ErrorDialog";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-} from "@/components/ui/dialog";
+import { useBatch, useBatches } from "@/features/batches";
+
 import { ProductModal, ProductView } from "@/features/products";
 import { useProduct } from "@/features/products/hooks/use-product";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
@@ -21,6 +15,7 @@ export default function Page() {
   const id = params.id as string;
   const { error, loading, product, refetch, updateProduct, deleteProduct } =
     useProduct(id);
+  const { setFilters } = useBatches();
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   if (loading) return <p>Loading</p>;
@@ -41,6 +36,7 @@ export default function Page() {
         onCreateBatch={() => {}}
         onDelete={handleOpenDeleteDialog}
         onEdit={handleOpen}
+        filterBatch={setFilters}
       />
 
       <ProductModal

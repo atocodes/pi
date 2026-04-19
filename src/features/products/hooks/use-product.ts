@@ -17,14 +17,9 @@ export function useProduct(id: string) {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const res = await findSingleProduct(id);
-      const data = await res.json();
+      const data = await findSingleProduct(id);
 
-      if (res.ok) {
-        setProduct(data);
-      } else {
-        setError(data.message);
-      }
+      setProduct(data);
     } catch (error: any) {
       setError(error.message || "Error fetching product");
     } finally {
@@ -39,14 +34,8 @@ export function useProduct(id: string) {
   const updateProduct = async (data: any) => {
     try {
       setLoading(true);
-      const res = await editProduct(data, id);
-
-      const updated = await res.json();
-      if (res.ok) {
-        setProduct(updated);
-      } else {
-        setError(updated.message);
-      }
+      const updated = await editProduct(data, id);
+      setProduct(updated);
     } catch (error: any) {
       setError(error.message || "Error Updating Product ");
     } finally {
@@ -57,12 +46,7 @@ export function useProduct(id: string) {
   const deleteProduct = async (id: string) => {
     try {
       const res = await removeProduct(id);
-      const data = await res.json();
-      if (res.ok) {
-        router.push("/products");
-      } else {
-        setError(data.message);
-      }
+      router.push("/products");
     } catch (error: any) {
       setError(error ?? "Error Delteing product");
     }

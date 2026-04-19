@@ -12,18 +12,21 @@ import { ProductWithRelation } from "../types";
 import { Button } from "@/components/ui/button";
 import { Info } from "@/components/Info";
 import { MovementDetailTable } from "@/features/movement_history";
-import { BatchesTable, BatchWithRelation } from "@/features/batches";
+import { BatchesTable } from "@/features/batches";
+import { SearchValues } from "@/features/batches/schemas/schemas";
 
 export function ProductView({
   product,
   onEdit,
   onDelete,
   onCreateBatch,
+  filterBatch,
 }: {
   product: ProductWithRelation;
   onEdit: () => void;
   onDelete: () => void;
   onCreateBatch: () => void;
+  filterBatch: (filters: SearchValues) => void;
 }) {
   const isLowStock =
     product.lowStockAlert && product.stock <= product.lowStockAlert;
@@ -102,6 +105,7 @@ export function ProductView({
         batches={product.batches}
         display={false}
         product={product}
+        filterBatch={filterBatch}
       />
 
       {/* MOVEMENTS */}

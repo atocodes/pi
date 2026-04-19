@@ -17,19 +17,7 @@ export function useBatches() {
   const fetchBatches = async (filters?: SearchValues) => {
     try {
       setLoading(true);
-      const params = new URLSearchParams();
-      if (filters) {
-        let sb: string | undefined;
-        if (filters.sortBy) sb = convertSortEnumToCamelCase(filters.sortBy);
-        if (sb) params.set("sortBy", sb);
-        if (filters.order) params.set("order", filters.order.toLowerCase());
-        if (filters.name == undefined || filters.name.trim() == "")
-          params.delete("name");
-        if (filters.name && filters.name.trim() != "")
-          params.set("name", filters.name);
-      }
-      const batches = await getBatches(params);
-
+      const batches = await getBatches(filters);
       setBatches(batches);
     } catch (error: any) {
       setError(error);

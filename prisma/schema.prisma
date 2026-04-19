@@ -49,11 +49,12 @@ model Customer {
 }
 
 model Supplier {
-  id      String  @id @default(uuid())
-  name    String
-  phone   String?
-  email   String?
-  address String?
+  id          String  @id @default(uuid())
+  name        String
+  phone       String?
+  email       String?
+  address     String?
+  contactName String?
 
   tinNumber String? @unique // Tax Identification Number
 
@@ -122,8 +123,8 @@ enum Unit {
 }
 
 model Batch {
-  id        String @id @default(uuid())
-  productId String
+  id         String  @id @default(uuid())
+  productId  String
   supplierId String?
 
   batchNumber   String?

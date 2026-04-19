@@ -19,19 +19,8 @@ export function useProducts() {
   const fetchProducts = async (filterValues?: SearchProductValues) => {
     try {
       setLoading(true);
-      const params = new URLSearchParams();
-      if (filterValues) {
-        let sb: string | undefined;
-        if (filterValues.sortBy) {
-          sb = convertSortEnumToCamelCase(filterValues.sortBy);
-          params.set("sortBy", sb);
-        }
-        if (filterValues.order) params.set("order", filterValues.order);
-        if (filterValues.q) params.set("q", filterValues.q);
-      }
 
-      const res = await getProducts(params);
-      const data = await res.json();
+      const data = await getProducts(filterValues);
 
       setProducts(data);
     } catch (error: any) {
@@ -50,31 +39,14 @@ export function useProducts() {
   }, [filters]);
 
   const createProduct = async (data: any) => {
-    const res = await createNewProduct(data);
-
-    const text = await res.text();
-
-    let newProduct = null;
-
-    try {
-      newProduct = text ? JSON.parse(text) : null;
-    } catch (error: any) {
-      setError(error ?? "Error Creating Product");
-    }
-
-    if (!res.ok) {
-      setError("Failed to create product");
-      return;
-    }
+    const newProduct = await createNewProduct(data);
 
     setProducts((prev) => (newProduct ? [newProduct, ...prev] : prev));
   };
 
   const updateProduct = async (data: any, id: string | undefined) => {
     try {
-      const res = await editProduct(data, id);
-
-      const updated = await res.json();
+      const updated = await editProduct(data, id);
 
       setProducts((prev) => prev.map((p) => (p.id == id ? updated : p)));
     } catch (error: any) {
