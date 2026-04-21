@@ -1,5 +1,6 @@
 "use client";
 
+import { StockMovementForm } from "@/features/movement_history";
 import {
   useProducts,
   ProductTable,
@@ -13,6 +14,8 @@ export default function InventoryPage() {
     useProducts();
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [openIssueDialog, setOpenIssueDialog] = useState<boolean>(false);
+  const [openReceiveDialog, setReceiveIssueDialog] = useState<boolean>(false);
 
   const handleAdd = () => {
     setSelectedProduct(null);
@@ -30,7 +33,7 @@ export default function InventoryPage() {
 
   // if (loading) return <p>Loading</p>;
   if (error) return <p>Error: {error}</p>;
- 
+
   return (
     <div className="lg:md-5 lg:w-full ">
       <ProductTable
@@ -38,6 +41,8 @@ export default function InventoryPage() {
         onAddProducts={handleAdd}
         onEdit={handleEdit}
         filterProduct={setFilters}
+        onOpenIssue={setOpenIssueDialog}
+        onOpenReceive={setReceiveIssueDialog}
       />
 
       <ProductModal
@@ -46,6 +51,18 @@ export default function InventoryPage() {
         initialData={selectedProduct}
         onSubmit={createProduct}
         onUpdate={updateProduct}
+      />
+
+      <StockMovementForm
+        mode="ISSUE"
+        open={openIssueDialog}
+        onOpenChange={setOpenIssueDialog}
+      />
+
+      <StockMovementForm
+        mode="RECEIVE"
+        open={openReceiveDialog}
+        onOpenChange={setReceiveIssueDialog}
       />
     </div>
   );

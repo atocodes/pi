@@ -10,14 +10,19 @@ import { useState } from "react";
 export default function Page() {
   const [open, setOpen] = useState<boolean>(false);
   const [supplier, setSupplier] = useState<Supplier | null>(null);
-  const { loading, error, setFilters, createSupplier, suppliers } =
-    useSuppliers();
+  const {
+    loading,
+    error,
+    setFilters,
+    createSupplier,
+    suppliers,
+    updateSupplier,
+  } = useSuppliers();
 
   const handleEditSupplier = (s: Supplier) => {
     setSupplier(s);
+    setOpen(true);
   };
-  console.log(error);
-  console.log(suppliers);
   return (
     <div className="w-full p-3.5">
       <SuppliersTable
@@ -31,6 +36,7 @@ export default function Page() {
         onOpenChange={setOpen}
         initalData={supplier}
         onSubmit={createSupplier}
+        onUpdate={updateSupplier}
       />
     </div>
   );

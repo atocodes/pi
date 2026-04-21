@@ -13,7 +13,6 @@ export function SupplierDetails({
   onEdit: () => void;
   onDelete: () => void;
 }) {
-  console.log(supplier);
   if (!supplier) return <p>No Supplier</p>;
   return (
     <div className="w-full flex flex-col gap-3">

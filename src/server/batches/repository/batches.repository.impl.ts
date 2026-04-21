@@ -46,13 +46,22 @@ export class BatchRepositoryImpl implements BatchRepo {
   }
   findAll(searchParams?: SearchBatchParms): Promise<any> {
     return prisma.batch.findMany({
-      where: searchParams?.name
+      where: searchParams?.q
         ? {
-            product: {
-              name: { 
-                contains: searchParams.name,
+            OR: [
+              {
+                product: {
+                  name: {
+                    contains: searchParams.q,
+                  },
+                },
               },
-            },
+              {
+                batchNumber: {
+                  contains: searchParams.q,
+                },
+              },
+            ],
           }
         : undefined,
       include: { movements: true, product: true },

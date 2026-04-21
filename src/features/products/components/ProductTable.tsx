@@ -13,12 +13,15 @@ import Link from "next/link";
 import { SearchProductsForm } from "./SearchProductsForm";
 import { Separator } from "@/components/ui/separator";
 import { SearchProductValues } from "../schemas/product.schema";
+import { useState } from "react";
 
 type Props = {
   products: ProductWithRelation[];
   onAddProducts?: () => void;
   onEdit?: (product: Product) => void;
   filterProduct?: (value: SearchProductValues) => void;
+  onOpenIssue: (open: boolean) => void;
+  onOpenReceive: (open: boolean) => void;
 };
 
 export function ProductTable({
@@ -26,14 +29,16 @@ export function ProductTable({
   onAddProducts,
   onEdit,
   filterProduct,
+  onOpenIssue,
+  onOpenReceive,
 }: Props) {
   return (
     <div className="space-y-4 py-3.5">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold">Products</h2>
         <div className="flex gap-2">
-          <Button>Receive</Button>
-          <Button>Issue</Button>
+          <Button onClick={() => onOpenReceive(true)}>Receive</Button>
+          <Button onClick={() => onOpenIssue(true)}>Issue</Button>
           <Button onClick={onAddProducts}>Add Product</Button>
         </div>
       </div>

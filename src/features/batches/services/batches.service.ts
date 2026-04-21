@@ -25,10 +25,10 @@ export const getBatches = async (filters?: SearchValues): Promise<any> => {
     if (filters.sortBy) sb = convertSortEnumToCamelCase(filters.sortBy);
     if (sb) params.set("sortBy", sb);
     if (filters.order) params.set("order", filters.order.toLowerCase());
-    if (filters.name == undefined || filters.name.trim() == "")
-      params.delete("name");
-    if (filters.name && filters.name.trim() != "")
-      params.set("name", filters.name);
+    if (filters.q == undefined || filters.q.trim() == "")
+      params.delete("q");
+    if (filters.q && filters.q.trim() != "")
+      params.set("q", filters.q);
   }
   const res = await fetch(`${BASEURL}?${params?.toString()}`);
   const batches = await res.json();

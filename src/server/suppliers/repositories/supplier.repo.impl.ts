@@ -13,7 +13,6 @@ export class SupplierRepoImpl implements SupplierRepo {
     });
   }
   async find(params?: SearchSupplierParams): Promise<any> {
-    console.log(params)
     return await prisma.supplier.findMany({
       include: { transactions: true },
       where: params?.q

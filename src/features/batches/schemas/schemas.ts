@@ -6,7 +6,7 @@ import { orderValues, sortValues } from "@/lib/constants";
 
 
 export const searchSchema = z.object({
-  name: z.string().nullable().optional(),
+  q: z.string().nullable().optional(),
   sortBy: z.enum(sortValues).nullable().optional(),
   order: z.enum(orderValues).nullable().optional(),
   expiredOnly: z.boolean().nullable(),

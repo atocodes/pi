@@ -32,7 +32,7 @@ export type BatchWithRelation = Prisma.BatchGetPayload<{
 export type SearchBatchParms = {
   expiredOnly?: boolean | undefined;
   expiringSoonOnly?: boolean | undefined;
-  name?: string | undefined;
+  q?: string | undefined;
   order?: string | undefined;
   sortBy?: string | undefined;
 };

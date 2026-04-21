@@ -14,7 +14,6 @@ export function useSuppliers() {
   const fetchSuppliers = async (params?: SearchBatchParms) => {
     try {
       setLoading(true);
-      console.log(params)
       const suppliers = await SupplierService.get(params);
       setSuppliers(suppliers);
     } catch (error: any) {
@@ -44,11 +43,31 @@ export function useSuppliers() {
     }
   };
 
+  const updateSupplier = async (data: any, id?: string) => {
+    try {
+      setLoading(true);
+      const supplier = await SupplierService.update(data, id!);
+      setSuppliers((prev) =>
+        prev.map((p) => {
+          if (p.id == id) {
+            return supplier;
+          }
+          return p;
+        }),
+      );
+    } catch (error: any) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     loading,
     error,
     setFilters,
     suppliers,
     createSupplier,
+    updateSupplier,
   };
 }

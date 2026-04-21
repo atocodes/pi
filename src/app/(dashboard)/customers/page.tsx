@@ -9,8 +9,15 @@ import { Customer } from "@/features/cutomers/types";
 import { useState } from "react";
 
 export default function CustomersPage() {
-  const { addCustomer, editCustomer, customers, loading, error, refetch } =
-    useCustomers();
+  const {
+    addCustomer,
+    editCustomer,
+    customers,
+    loading,
+    error,
+    refetch,
+    setFilters,
+  } = useCustomers();
   const [open, setOpen] = useState<boolean>(false);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const onOpenChange = () => {
@@ -27,6 +34,7 @@ export default function CustomersPage() {
         customers={customers}
         onAddCustomer={() => setOpen(true)}
         onEdit={handleEdit}
+        searchCustomer={setFilters}
       />
       <CustomerModal
         open={open}

@@ -1,5 +1,6 @@
+import { Prisma } from "../../../generated/prisma/client";
 import { CustomerCredit } from "../customer_creadits/types";
-import { MovementHistory } from "../movement_history/types";
+import { Movement } from "../movement_history";
 
 export type Customer = {
   id: string;
@@ -10,9 +11,20 @@ export type Customer = {
 
   tinNumber?: string | null;
 
-  credits: CustomerCredit[];
-  movements: MovementHistory[];
-
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type CustomerWithRelation = Customer &
+  Prisma.CustomerGetPayload<{
+    include: {
+      credits: true;
+      movements: true;
+    };
+  }>;
+
+export type SearchCustomerType = {
+  q?: string | null;
+  sortBy?: string | null;
+  order?: string | null;
 };

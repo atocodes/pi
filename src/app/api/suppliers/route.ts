@@ -11,7 +11,6 @@ export async function GET(req: NextRequest) {
     const suppliers = await supplierService.find(params);
     return NextResponse.json(suppliers, { status: 200 });
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { message: "Error fetching suppliers " + error },
       { status: 500 },
