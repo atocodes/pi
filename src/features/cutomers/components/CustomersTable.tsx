@@ -6,18 +6,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Customer } from "../types";
+import { Customer, CustomerWithRelation } from "../types";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useCustomers } from "../hooks/use-customers";
+import { SearchCustomersForm } from "./SearchCustomerForm";
+import { SearchCustomerValues } from "../schemas/searchCustomers.schema";
 
 type Props = {
-  customers: Customer[];
+  customers: CustomerWithRelation[];
   onEdit?: (customer: Customer) => void;
   onAddCustomer?: () => void;
+  searchCustomer?: (value: SearchCustomerValues) => void;
 };
 
-export function CustomersTable({ customers, onAddCustomer, onEdit }: Props) {
+export function CustomersTable({
+  customers,
+  onAddCustomer,
+  onEdit,
+  searchCustomer,
+}: Props) {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
@@ -26,6 +33,7 @@ export function CustomersTable({ customers, onAddCustomer, onEdit }: Props) {
           <Button onClick={onAddCustomer}>Create Customer</Button>
         </div>
       </div>
+      <SearchCustomersForm onSearch={searchCustomer} />
       <Table className="w-full">
         <TableHeader>
           <TableRow>

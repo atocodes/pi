@@ -1,10 +1,35 @@
+import { SearchCustomerValues } from "@/features/cutomers/schemas/searchCustomers.schema";
 import { Customer } from "@/features/cutomers/types";
 import { prisma } from "@/lib/prisma";
 
 export const customerRepositories = {
-  findAll: async (): Promise<Customer[]> => {
+  findAll: async (params?: SearchCustomerValues): Promise<Customer[]> => {
     return prisma.customer.findMany({
-      orderBy: { createdAt: "desc" },
+      where:
+        params?.q != null
+          ? {
+              OR: [
+                {
+                  name: {
+                    contains: params.q,
+                  },
+                },
+                {
+                  tinNumber: {
+                    contains: params.q,
+                  },
+                },
+                {
+                  contactName: {
+                    contains: params.q,
+                  },
+                },
+              ],
+            }
+          : undefined,
+      orderBy: params?.sortBy
+        ? { [params?.sortBy as string]: params.order }
+        : undefined,
       include: {
         credits: true,
         movements: true,

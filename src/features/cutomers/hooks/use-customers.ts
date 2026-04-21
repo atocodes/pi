@@ -1,22 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Customer } from "../types";
+import { Customer, CustomerWithRelation } from "../types";
 import {
   createCustomer,
   getCustomers,
   updateCustomer,
 } from "../services/customers.service";
+import { SearchCustomerValues } from "../schemas/searchCustomers.schema";
 
 export function useCustomers() {
-  const [customers, setCustomers] = useState<Customer[] | []>([]);
+  const [customers, setCustomers] = useState<CustomerWithRelation[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  const fetchCustomers = async () => {
+  const [filters, setFilters] = useState<SearchCustomerValues | undefined>();
+  
+  
+  const fetchCustomers = async (filters?: SearchCustomerValues) => {
     try {
       setLoading(true);
-      const res = await getCustomers();
+      const res = await getCustomers(filters);
       const customers = await res.json();
 
       setCustomers(customers);
@@ -28,8 +31,12 @@ export function useCustomers() {
   };
 
   useEffect(() => {
-    fetchCustomers();
-  }, []);
+    const delay = setTimeout(() => {
+      fetchCustomers(filters);
+    }, 300);
+
+    return ()=> clearTimeout(delay);
+  }, [filters]);
 
   const addCustomer = async (data: any) => {
     try {
@@ -64,5 +71,6 @@ export function useCustomers() {
     refetch: fetchCustomers,
     editCustomer,
     addCustomer,
+    setFilters,
   };
 }

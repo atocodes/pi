@@ -1,4 +1,18 @@
-export const getCustomers = async () => fetch("/api/customers");
+import { convertSortEnumToCamelCase } from "@/lib/utils";
+import { SearchCustomerValues } from "../schemas/searchCustomers.schema";
+
+export const getCustomers = async (params?: SearchCustomerValues) => {
+  const param = new URLSearchParams();
+  if (params) {
+    if (params.q) param.set("q", params.q.toLowerCase());
+    if (params.order) param.set("order", params.order.toLocaleLowerCase());
+    if (params.sortBy)
+      param.set("sortBy", convertSortEnumToCamelCase(params.sortBy));
+  }
+  console.log(param.toString())
+
+  return fetch(`/api/customers?${param.toString()}`);
+};
 
 export const createCustomer = async (data: any) =>
   fetch("/api/customers", {

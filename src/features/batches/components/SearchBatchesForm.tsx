@@ -34,7 +34,7 @@ export function SearchBatchesForm({ onSearch }: Props) {
       <FieldGroup className="flex flex-row">
         <Field className="">
           <FieldLabel>Search</FieldLabel>
-          <Input {...register("name")} className="w-0.5" />
+          <Input {...register("q")} className="w-0.5" />
         </Field>
         <Field className="flex-1/3">
           <FieldLabel>Sort By</FieldLabel>

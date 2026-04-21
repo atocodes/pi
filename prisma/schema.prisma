@@ -42,7 +42,7 @@ model Customer {
   tinNumber String? @unique
 
   credits   CustomerCredit[]
-  movements MovementHistory[]
+  movements Movement[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -104,7 +104,7 @@ model Product {
   lowStockAlert Int?
 
   batches   Batch[]
-  movements MovementHistory[]
+  movements MovementItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -140,9 +140,9 @@ model Batch {
   expiryDate      DateTime
 
   product Product @relation(fields: [productId], references: [id])
-  // supplier Supplier @relation(fields: [supplierId], references: [id])
+  // supplier Supplier? @relation(fields: [supplierId], references: [id])
 
-  movements MovementHistory[]
+  movements MovementItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -167,22 +167,33 @@ model CustomerCredit {
   updatedAt DateTime @updatedAt
 }
 
-model MovementHistory {
+model Movement {
+  id          String       @id @default(uuid())
+  type        MovementType
+  note        String?
+  issueNumber String?
+
+  paymentType PaymentType
+
+  customerId String?
+  customer   Customer? @relation(fields: [customerId], references: [id])
+
+  items     MovementItem[]
+  createdAt DateTime       @default(now())
+}
+
+model MovementItem {
   id String @id @default(uuid())
 
+  movementId String
   productId  String
   batchId    String?
-  customerId String?
 
-  type     MovementType
   quantity Int
 
-  reference String? // invoice / receipt
-  note      String?
-
-  product  Product   @relation(fields: [productId], references: [id])
-  batch    Batch?    @relation(fields: [batchId], references: [id])
-  customer Customer? @relation(fields: [customerId], references: [id])
+  movement Movement @relation(fields: [movementId], references: [id])
+  product  Product  @relation(fields: [productId], references: [id])
+  batch    Batch?   @relation(fields: [batchId], references: [id])
 
   createdAt DateTime @default(now())
 }
@@ -193,4 +204,9 @@ enum MovementType {
   RETURN
   ADJUSTMENT
   EXPIRED
+}
+
+enum PaymentType {
+  Cash
+  Transaction
 }

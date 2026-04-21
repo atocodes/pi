@@ -12,7 +12,6 @@ import { useState } from "react";
 export default function Page({ params }: { params: { id: string } }) {
   const param = useParams();
   const id = param.id as string;
-  console.log(id);
   const { supplier, loading, error, refetch, removeSupplier, updateSupplier } =
     useSupplier(id);
   const [openEditDialog, setEditDialog] = useState<boolean>(false);

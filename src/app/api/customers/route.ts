@@ -1,9 +1,14 @@
+import { SearchCustomerType } from "@/features/cutomers";
 import { customerService } from "@/server/customers/services/customers.service";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
-    const customers = await customerService.getCustomers();
+    const { searchParams } = new URL(req.url);
+    const params : SearchCustomerType = {
+      ...Object.fromEntries(searchParams.entries())
+    }
+    const customers = await customerService.getCustomers(params);
     return NextResponse.json(customers, { status: 200 });
   } catch (error) {
     return NextResponse.json(

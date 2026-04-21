@@ -11,7 +11,6 @@ export async function GET(req: NextRequest) {
     const products = await productService.getProducts(params);
     return NextResponse.json(products);
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { message: "Failed to get products : " + error },
       { status: 500 },

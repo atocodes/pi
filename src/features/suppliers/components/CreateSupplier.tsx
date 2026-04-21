@@ -100,7 +100,7 @@ export function SupplierModal({
               Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting}>
-              {initalData ? "Update" : "Create Customer"}
+              {initalData ? "Update" : "Create Supplier"}
             </Button>
           </div>
         </form>
