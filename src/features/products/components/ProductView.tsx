@@ -109,7 +109,7 @@ export function ProductView({
       />
 
       {/* MOVEMENTS */}
-      {/* add movement table component here */}
+      <MovementItemsTable movements={product.movements} />
     </div>
   );
 }
