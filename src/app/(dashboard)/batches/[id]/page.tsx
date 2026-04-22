@@ -3,7 +3,6 @@ import ConfirmDeleteDailog from "@/components/ConfirmDeleteDialog";
 import { BatchModal, BatchWithRelation, useBatch } from "@/features/batches";
 import { BatchView } from "@/features/batches/components/BatchView";
 import { ProductWithRelation, useProducts } from "@/features/products";
-import { useProduct } from "@/features/products/hooks/use-product";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 

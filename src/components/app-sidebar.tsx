@@ -29,7 +29,7 @@ export default function AppSidebar() {
     { title: "Batches", url: "/batches", icon: Boxes },
     { title: "Customers", url: "/customers", icon: Users },
     { title: "Suppliers", url: "/suppliers", icon: Truck },
-    { title: "Movement History", url: "/movementHistory", icon: History },
+    { title: "Movement History", url: "/movements", icon: History },
     { title: "Customer Creadits", url: "/customerCreadits", icon: HandCoins },
   ];
   return (

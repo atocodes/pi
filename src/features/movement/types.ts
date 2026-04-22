@@ -1,5 +1,4 @@
 import { Prisma } from "../../../generated/prisma/client";
-import { Customer } from "../cutomers/types";
 
 export type Movement = {
   id: string;
@@ -23,6 +22,7 @@ export type MovementItem = {
   batchId?: string | null;
 
   quantity: number;
+  unitPrice: number;
 
   createdAt: Date;
 };
@@ -44,7 +44,6 @@ export type MovementItemWithRelation = MovementItem &
     };
   }>;
 
-
 export type MovementType =
   | "SALE"
   | "PURCHASE"
@@ -55,3 +54,11 @@ export type MovementType =
 export type PaymentType = "Cash" | "Transaction";
 
 export type MovementMode = "ISSUE" | "RECEIVE";
+
+export type SearchMovementParams = {
+  page?: number;
+  limit?: number;
+  dateFrom?: Date;
+  dateTo?: Date;
+  order?: "asc" | "desc";
+};

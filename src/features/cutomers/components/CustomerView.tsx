@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Customer } from "../types";
+import { Customer, CustomerWithRelation } from "../types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,16 +11,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Info } from "@/components/Info";
-import { MovementDetailTable } from "@/features/movement_history";
 import { CustomerCreaditsTable } from "@/features/customer_creadits/components/CreaditsTable";
+import { MovementItemsTable } from "@/features/movement";
 
 type Props = {
-  customer: Customer | null;
+  customer: CustomerWithRelation | null;
   onEdit: () => void;
   onDelete: () => void;
 };
 
 export function CustomerView({ customer, onEdit, onDelete }: Props) {
+ console.log(customer)
   let dueCredites = 0;
   let outstandingCreadit = 0;
   if (customer && customer.credits)
@@ -92,7 +93,7 @@ export function CustomerView({ customer, onEdit, onDelete }: Props) {
       {/* Credits */}
       <CustomerCreaditsTable creadits={customer?.credits!} />
 
-      <MovementDetailTable movements={customer?.movements!} />
+      <MovementItemsTable movements={customer?.movements!} />
     </div>
   );
 }

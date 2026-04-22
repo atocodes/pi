@@ -20,7 +20,7 @@ export const movementItemSchema = z.object({
 export const movementSchema = z.object({
   issueNumber: z.string().optional(),
   receiveNumber: z.string().optional(),
-  reason: z.enum(movementTypeValues),
+  type: z.enum(movementTypeValues),
   customerId: z.string().optional(),
   supplierId: z.string().optional(),
   paymentType: z.enum(paymentTypeValues).optional(),
