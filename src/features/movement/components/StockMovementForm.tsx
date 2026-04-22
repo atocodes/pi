@@ -28,7 +28,7 @@ import { useBatches } from "@/features/batches";
 import { CustomerModal } from "@/features/cutomers";
 
 import { movementConfig } from "../config/movement.config";
-import { MovementItem, MovementMode } from "../types";
+import { Movement, MovementItem, MovementMode } from "../types";
 import {
   movementItemSchema,
   MovementItemValues,
@@ -39,6 +39,7 @@ import {
 } from "../schema/movement.schema";
 import { useProducts } from "@/features/products";
 import { SupplierModal, useSupplier, useSuppliers } from "@/features/suppliers";
+import { useMovements } from "../hooks/use_movements";
 
 type Props = {
   open: boolean;
@@ -48,13 +49,14 @@ type Props = {
 
 export function StockMovementForm({ open, onOpenChange, mode }: Props) {
   const config = movementConfig[mode];
+  const { createMovement } = useMovements();
 
   const form = useForm<MovementValues>({
     resolver: zodResolver(movementSchema),
     defaultValues: {
       issueNumber: mode == "ISSUE" ? "" : undefined,
       receiveNumber: mode == "RECEIVE" ? "" : undefined,
-      reason: movementTypeValues[0],
+      type: movementTypeValues[0],
       customerId: mode == "ISSUE" ? "" : undefined,
       supplierId: mode == "ISSUE" ? "" : undefined,
       paymentType: paymentTypeValues[0],
@@ -112,8 +114,10 @@ export function StockMovementForm({ open, onOpenChange, mode }: Props) {
   const [openCustomerModal, setCustomerModalOpen] = useState(false);
   const [openSupplierModal, setSupplierModalOpen] = useState(false);
 
-  const submit = (data: MovementValues) => {
+  const submit = async (data: MovementValues) => {
     console.log("SUBMIT", data);
+    console.log(data)
+    await createMovement(data);
     reset();
     setSelectedCustomer(null);
     setSelectedSupplier(null);
@@ -168,7 +172,7 @@ export function StockMovementForm({ open, onOpenChange, mode }: Props) {
 
             <Field>
               <FieldLabel>Reason</FieldLabel>
-              <select {...register("reason")}>
+              <select {...register("type")}>
                 {movementTypeValues.map((r) => (
                   <option key={r} value={r}>
                     {r}

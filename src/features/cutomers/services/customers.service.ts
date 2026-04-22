@@ -9,7 +9,6 @@ export const getCustomers = async (params?: SearchCustomerValues) => {
     if (params.sortBy)
       param.set("sortBy", convertSortEnumToCamelCase(params.sortBy));
   }
-  console.log(param.toString())
 
   return fetch(`/api/customers?${param.toString()}`);
 };

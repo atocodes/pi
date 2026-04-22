@@ -11,9 +11,9 @@ import { Badge } from "@/components/ui/badge";
 import { ProductWithRelation } from "../types";
 import { Button } from "@/components/ui/button";
 import { Info } from "@/components/Info";
-import { MovementDetailTable } from "@/features/movement_history";
 import { BatchesTable } from "@/features/batches";
 import { SearchValues } from "@/features/batches/schemas/schemas";
+import { MovementItemsTable } from "@/features/movement";
 
 export function ProductView({
   product,
@@ -109,7 +109,7 @@ export function ProductView({
       />
 
       {/* MOVEMENTS */}
-      <MovementDetailTable movements={product.movements} />
+      {/* add movement table component here */}
     </div>
   );
 }

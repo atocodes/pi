@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SupplierWithRelation } from "../types";
 import { Info } from "@/components/Info";
-import { MovementDetailTable } from "@/features/movement_history";
 import { Button } from "@/components/ui/button";
+import { MovementItemsTable } from "@/features/movement";
 
 export function SupplierDetails({
   supplier,
@@ -64,7 +64,7 @@ export function SupplierDetails({
         </CardContent>
       </Card>
 
-      <MovementDetailTable movements={supplier.movements} />
+      {/* <MovementItemsTable movements={supplier.movements} /> */}
     </div>
   );
 }

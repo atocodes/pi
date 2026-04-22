@@ -1,6 +1,6 @@
 import { Prisma } from "../../../generated/prisma/client";
 import { CustomerCredit } from "../customer_creadits/types";
-import { Movement } from "../movement_history";
+import { Movement } from "../movement";
 
 export type Customer = {
   id: string;

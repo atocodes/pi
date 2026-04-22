@@ -4,14 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BatchWithRelation } from "../types";
 import { Button } from "@/components/ui/button";
 import { Info } from "@/components/Info";
-import {
-  MovementDetailTable,
-  MovementHistory,
-} from "@/features/movement_history";
+
 import { useEffect, useState } from "react";
 import { ProductWithRelation } from "@/features/products";
 import { useBatch } from "../hooks/use-batch";
 import { useProduct } from "@/features/products/hooks/use-product";
+import { MovementItemsTable } from "@/features/movement";
 
 export function BatchView({
   batch,
@@ -23,7 +21,7 @@ export function BatchView({
   onDelete: () => void;
 }) {
   const { product, loading, error, refetch } = useProduct(batch?.productId!);
-
+console.log(batch,"BATCH")
   return (
     <div className="grid p-4 md:p-6 gap-5">
       {/* HEADER */}
@@ -91,7 +89,7 @@ export function BatchView({
             />
           </CardContent>
         </Card>
-        <MovementDetailTable movements={batch?.movements!} />
+        <MovementItemsTable movements={batch?.movements} />
       </div>
     </div>
   );

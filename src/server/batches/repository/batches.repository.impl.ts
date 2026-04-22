@@ -41,7 +41,14 @@ export class BatchRepositoryImpl implements BatchRepo {
   findById(id: string): Promise<any> {
     return prisma.batch.findUnique({
       where: { id },
-      include: { movements: true, product: true },
+      include: {
+        movements: {
+          include: {
+            batch: true,
+          },
+        },
+        product: true,
+      },
     });
   }
   findAll(searchParams?: SearchBatchParms): Promise<any> {
@@ -64,7 +71,15 @@ export class BatchRepositoryImpl implements BatchRepo {
             ],
           }
         : undefined,
-      include: { movements: true, product: true },
+      include: {
+        movements: {
+          include: {
+            product: true,
+            batch: true,
+          },
+        },
+        product: true,
+      },
       orderBy: searchParams?.sortBy
         ? {
             [searchParams?.sortBy as string]: searchParams?.order,
