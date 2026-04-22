@@ -1,6 +1,6 @@
 "use client";
 
-import { StockMovementForm } from "@/features/movement_history";
+import { StockMovementForm } from "@/features/movement";
 import {
   useProducts,
   ProductTable,

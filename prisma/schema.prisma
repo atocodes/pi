@@ -189,7 +189,8 @@ model MovementItem {
   productId  String
   batchId    String?
 
-  quantity Int
+  quantity  Int
+  unitPrice Int
 
   movement Movement @relation(fields: [movementId], references: [id])
   product  Product  @relation(fields: [productId], references: [id])

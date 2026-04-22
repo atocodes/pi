@@ -43,7 +43,9 @@ export const customerRepositories = {
       include: {
         credits: true,
         movements: {
-          orderBy: { createdAt: "desc" },
+          include: {
+            items: true,
+          },
           take: 10,
         },
       },

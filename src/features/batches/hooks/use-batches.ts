@@ -27,11 +27,7 @@ export function useBatches() {
   };
 
   useEffect(() => {
-    const delay = setTimeout(() => {
-      fetchBatches(filters);
-    }, 300);
-
-    return () => clearTimeout(delay);
+    fetchBatches(filters);
   }, [filters]);
 
   const createBatch = async (data: any, product: any) => {

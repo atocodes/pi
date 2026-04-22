@@ -27,8 +27,17 @@ export const productRepositories = {
         ? { [params.sortBy as string]: params.order }
         : undefined,
       include: {
-        batches: true,
-        movements: true,
+        batches: {
+          include: {
+            movements: true,
+          },
+        },
+        movements: {
+          include: {
+            batch: true,
+            movement: true,
+          },
+        },
       },
     });
   },
@@ -40,6 +49,9 @@ export const productRepositories = {
         batches: true,
         movements: {
           orderBy: { createdAt: "desc" },
+          include: {
+            batch: true,
+          },
           take: 10,
         },
       },
