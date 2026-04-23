@@ -1,5 +1,5 @@
-import { SearchProductValues } from "@/features/products/schemas/product.schema";
-import { productService } from "@/server/products/services/product.service";
+import { SearchProductValues } from "@/features/products/schema/product.schema";
+import { productService } from "@/server/products";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     const params: SearchProductValues = {
       ...Object.fromEntries(searchParams.entries()),
     };
-    const products = await productService.getProducts(params);
+    const products = await productService.findAll(params);
     return NextResponse.json(products);
   } catch (error) {
     return NextResponse.json(
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const product = await productService.createProduct(body);
+    const product = await productService.create(body);
 
     return NextResponse.json(product, { status: 200 });
   } catch (error) {

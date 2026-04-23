@@ -39,24 +39,26 @@ export default function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton>
+          {/* <SidebarGroupContent> */}
+          <SidebarMenu>
+            {items.map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton>
+                  <a href={item.url} className="flex gap-5 justify-between">
                     <item.icon className="w-6 h-6" />
-                    <a href={item.url} className="columns-2 justify-evenly">
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
+                    <span className="group-data-[state=collapsed]:hidden">
+                      {item.title}
+                    </span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+          {/* </SidebarGroupContent> */}
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <Card className="px-3 py-2">
+        {/* <Card className="px-3 py-2">
           <CardContent className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Avatar className="h-9 w-9">
@@ -74,7 +76,7 @@ export default function AppSidebar() {
               Action
             </Button>
           </CardContent>
-        </Card>
+        </Card> */}
       </SidebarFooter>
     </Sidebar>
   );

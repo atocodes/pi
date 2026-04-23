@@ -22,10 +22,10 @@ import { Card } from "@/components/ui/card";
 
 import { EntityPicker } from "@/components/EntityPicker";
 
-import { useCustomers } from "@/features/cutomers";
+import { useCustomers } from "@/features/customers";
 import { useBatches } from "@/features/batches";
 
-import { CustomerModal } from "@/features/cutomers";
+import { CustomerModal } from "@/features/customers";
 
 import { movementConfig } from "../config/movement.config";
 import { Movement, MovementItem, MovementMode } from "../types";
@@ -39,7 +39,7 @@ import {
 } from "../schema/movement.schema";
 import { useProducts } from "@/features/products";
 import { SupplierModal, useSupplier, useSuppliers } from "@/features/suppliers";
-import { useMovements } from "../hooks/use_movements";
+import { useMovements } from "../hooks/movements.hook";
 
 type Props = {
   open: boolean;

@@ -1,4 +1,4 @@
-import { customerService } from "@/server/customers/services/customers.service";
+import { customerService } from "@/server/customers";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -7,7 +7,7 @@ export async function GET(
 ) {
   try {
     const param = await params;
-    const customer = await customerService.getCustomer(param.id);
+    const customer = await customerService.findById(param.id);
     return NextResponse.json(customer, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -24,7 +24,7 @@ export async function PUT(
   try {
     const param = await params;
     const data = await req.json();
-    const customer = await customerService.updateCustomer(param.id, data);
+    const customer = await customerService.update(param.id, data);
     return NextResponse.json(customer, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -40,7 +40,7 @@ export async function DELETE(
 ) {
   try {
     const param = await params;
-    const customer = await customerService.deleteCustomer(param.id);
+    const customer = await customerService.delete(param.id);
     return NextResponse.json(customer, { status: 200 });
   } catch (error) {
     return NextResponse.json(

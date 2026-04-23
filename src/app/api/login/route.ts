@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { LOGINTOKEN } from "@/lib/constants";
-import { loginUser } from "@/server/auth/auth.service";
+import { authService } from "@/server/auth";
 
 export async function POST(req: Request) {
   try {
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const user = await loginUser({ username, password });
+    const user = await authService.loginUser({ username, password });
 
     await (await cookies()).set(LOGINTOKEN, user.id);
 

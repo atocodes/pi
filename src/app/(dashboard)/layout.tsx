@@ -18,15 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-   
-      <div className="min-h-full flex flex-col">
-        
-          <SidebarProvider>
-            <AppSidebar />
-              <SidebarTrigger />
-              {children}
-          </SidebarProvider>
-          {/* <ThemeToggle/> */}
-      </div>
+    <div className="min-h-full flex flex-col">
+      <SidebarProvider >
+        <AppSidebar />
+        <SidebarTrigger />
+        {children}
+      </SidebarProvider>
+      {/* <ThemeToggle/> */}
+    </div>
   );
 }

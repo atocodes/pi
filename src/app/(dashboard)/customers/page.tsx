@@ -1,11 +1,13 @@
 "use client";
 
+import { ErrorDialog } from "@/components/ErrorDialog";
+import { TableSkeleton } from "@/components/TableSkeleton";
 import {
   CustomerModal,
   CustomersTable,
   useCustomers,
-} from "@/features/cutomers";
-import { Customer } from "@/features/cutomers/types";
+} from "@/features/customers";
+import { Customer } from "@/features/customers/types";
 import { useState } from "react";
 
 export default function CustomersPage() {
@@ -20,26 +22,29 @@ export default function CustomersPage() {
   } = useCustomers();
   const [open, setOpen] = useState<boolean>(false);
   const [customer, setCustomer] = useState<Customer | null>(null);
-  const onOpenChange = () => {
-    setOpen(!open);
-  };
 
   const handleEdit = (customer: Customer) => {
     setCustomer(customer);
     setOpen(true);
   };
+
+  if (loading) return <TableSkeleton />;
+  if (error)
+    return <ErrorDialog open={true} message={error} onRetry={refetch} />;
+
   return (
-    <div className="w-full p-3.5">
+    <div className="lg:md-5 lg:w-full">
       <CustomersTable
         customers={customers}
         onAddCustomer={() => setOpen(true)}
         onEdit={handleEdit}
         searchCustomer={setFilters}
       />
+
       <CustomerModal
         open={open}
         initalData={customer}
-        onOpenChange={onOpenChange}
+        onOpenChange={setOpen}
         onSubmit={addCustomer}
         onUpdate={editCustomer}
       />

@@ -1,4 +1,4 @@
-import { productService } from "@/server/products/services/product.service";
+import { productService } from "@/server/products";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -7,7 +7,7 @@ export async function GET(
 ) {
   try {
     const param = await params;
-    const product = await productService.getProduct(param.id);
+    const product = await productService.findById(param.id);
     if (!product) {
       return NextResponse.json(
         { message: "Product Not found" },
@@ -31,7 +31,7 @@ export async function PUT(
   try {
     const body = await req.json();
     const param = await params;
-    const product = await productService.updateProduct(param.id, body);
+    const product = await productService.update(param.id, body);
 
     return NextResponse.json(product, { status: 200 });
   } catch (error) {
@@ -48,7 +48,7 @@ export async function DELETE(
 ) {
   try {
     const param = await params;
-    const product = await productService.delteProduct(param.id);
+    const product = await productService.delete(param.id);
     return NextResponse.json(product, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(

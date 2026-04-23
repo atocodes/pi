@@ -13,8 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Badge } from "@/components/ui/badge";
-import { LoginFormValues, loginSchema } from "../schemas/user.schema";
-import { useLogin } from "../hooks/use-login";
+import { LoginFormValues, loginSchema } from "../schema/user.schema";
+import { useLogin } from "../hooks/login.hook";
 
 
 

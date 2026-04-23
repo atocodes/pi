@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SearchProductsForm } from "./SearchProductsForm";
 import { Separator } from "@/components/ui/separator";
-import { SearchProductValues } from "../schemas/product.schema";
+import { SearchProductValues } from "../schema/product.schema";
 import { useState } from "react";
 
 type Props = {

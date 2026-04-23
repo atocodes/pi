@@ -1,34 +1,72 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
-} from "./ui/dialog";
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
-type Props = {
-  error: any;
-  href: string;
+type ErrorDialogProps = {
+  open: boolean;
+  onOpenChange?: (open: boolean) => void;
+
+  title?: string;
+  message?: string;
+
+  onRetry?: () => void;
+  retryLabel?: string;
+
+  onClose?: () => void;
 };
 
-export default function ErrorDialog(props: Props) {
+export function ErrorDialog({
+  open,
+  onOpenChange,
+  title = "Something went wrong",
+  message = "An unexpected error occurred. Please try again.",
+  onRetry,
+  retryLabel = "Retry",
+  onClose,
+}: ErrorDialogProps) {
   return (
-    <div className="flex w-full h-full justify-center items-center">
-      <Dialog open={true}>
-        <DialogContent>
-          <DialogHeader>Error</DialogHeader>
-          <DialogDescription>{props.error}</DialogDescription>
-          <DialogFooter>
-            <Button>
-              <Link href={props.href}>Go Back</Link>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="text-red-600">
+            {title}
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="text-sm text-muted-foreground">
+          {message}
+        </div>
+
+        <DialogFooter className="gap-2">
+          <Button
+            variant="outline"
+            onClick={() => {
+              onOpenChange!(false);
+              onClose?.();
+            }}
+          >
+            Close
+          </Button>
+
+          {onRetry && (
+            <Button
+              onClick={() => {
+                onRetry();
+                onOpenChange!(false);
+              }}
+            >
+              {retryLabel}
             </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+          )}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   searchProductSchema,
   SearchProductValues,
-} from "../schemas/product.schema";
+} from "../schema/product.schema";
 import { orderValues, sortValues } from "@/lib/constants";
 
 type Props = {
