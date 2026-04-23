@@ -27,7 +27,7 @@ import {
   InputGroupText,
 } from "@/components/ui/input-group";
 import { Product } from "../types";
-import { productSchema, unitValues } from "../schemas/product.schema";
+import { productSchema, unitValues } from "../schema/product.schema";
 
 type FormValues = z.infer<typeof productSchema>;
 

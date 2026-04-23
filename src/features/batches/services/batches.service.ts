@@ -1,5 +1,5 @@
 import { headers } from "@/lib/constants";
-import { SearchValues } from "../schemas/schemas";
+import { SearchValues } from "../schema/schemas";
 import { convertSortEnumToCamelCase } from "@/lib/utils";
 
 const BASEURL = "/api/batches";

@@ -1,5 +1,5 @@
 "use client";
-import { useMovements } from "@/features/movement/hooks/use_movements";
+import { useMovements } from "@/features/movement/hooks/movements.hook";
 
 export default function Page() {
   const { movements, createMovement } = useMovements();

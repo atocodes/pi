@@ -22,7 +22,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { BatchWithRelation } from "../types";
-import { batchSchema } from "../schemas/schemas";
+import { batchSchema } from "../schema/schemas";
 import { Product, ProductWithRelation, useProducts } from "@/features/products";
 import {
   Card,
@@ -102,6 +102,7 @@ export function BatchModal({
       reset();
     }
     onOpenChange(false);
+    setProduct(null)
     reset();
   };
 

@@ -1,35 +1,39 @@
-import { productRepositories } from "../repositories/product.repo";
-import { Product } from "../../../features/products/types";
-import { SearchProductValues } from "@/features/products/schemas/product.schema";
+import { Product } from "@/features/products/types";
+import { SearchProductValues } from "@/features/products/schema/product.schema";
+import { ProductRepo } from "../interfaces/product.repo";
+import { ProductRepoImpl } from "../repositories/product.repo.impl";
 
-// Real Logic lives here
+export class ProductService implements ProductRepo {
+  productRepo: ProductRepoImpl;
 
-export const productService = {
-  getProducts: async (params?: SearchProductValues) => {
-    if (params?.order) params.order = params?.order.toLowerCase();
-    return productRepositories.findAll(params);
-  },
+  constructor(repo: ProductRepoImpl) {
+    this.productRepo = repo;
+  }
 
-  getProduct: async (id: string) => {
-    const product = await productRepositories.findById(id);
+  async findAll(params?: SearchProductValues) {
+    if (params?.order) params.order = params?.order.toLowerCase() as any;
+    return await this.productRepo.findAll(params);
+  }
+
+  async findById(id: string) {
+    const product = await this.productRepo.findById(id);
     if (!product) throw new Error("Product not found");
     return product;
-  },
+  }
 
-  createProduct: async (data: Product) => {
-    // busuness rules  here
+  async create(data: Product) {
     if (data.barcode == "") data.barcode = null;
-    return productRepositories.create({
+    return await this.productRepo.create({
       ...data,
       createdAt: new Date(),
     });
-  },
+  }
 
-  updateProduct: async (id: string, data: Product) => {
-    return productRepositories.update(id, data);
-  },
+  async update(id: string, data: Product) {
+    return await this.productRepo.update(id, data);
+  }
 
-  delteProduct: async (id: string) => {
-    return productRepositories.delete(id);
-  },
-};
+  async delete(id: string) {
+    return await this.productRepo.delete(id);
+  }
+}

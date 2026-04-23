@@ -1,5 +1,7 @@
 "use client";
 
+import { ErrorDialog } from "@/components/ErrorDialog";
+import { TableSkeleton } from "@/components/TableSkeleton";
 import {
   BatchesTable,
   BatchModal,
@@ -11,40 +13,22 @@ import { useProducts } from "@/features/products";
 import { useState } from "react";
 
 export default function Page() {
-  const { batches, createBatch, error, loading, refetch, setFilters } =
-    useBatches();
+  const { batches, createBatch, error, loading, setFilters } = useBatches();
   const { products } = useProducts();
   const [open, setOpen] = useState(false);
-  const [selectedBatch, setSelectedBatch] = useState<BatchWithRelation | null>(
-    null,
-  );
 
-  // if (loading) return <p>Loading</p>;
-  if (error) return <p>Error: {error}</p>;
-
-  const handleAdd = () => {
-    setSelectedBatch(null);
-    setOpen(true);
-  };
-
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-
-  const handleEdit = (batch: BatchWithRelation) => {
-    setSelectedBatch(batch);
-    setOpen(true);
-  };
+  if (loading) return <TableSkeleton />;
+  if (error) return <ErrorDialog open={true} message={error} />;
 
   return (
     <div className="w-full p-3.5">
       <BatchesTable
         batches={batches}
-        onAddBatch={handleAdd}
+        onAddBatch={setOpen}
         filterBatch={setFilters}
       />
       <BatchModal
-        onOpenChange={handleOpen}
+        onOpenChange={setOpen}
         open={open}
         onSubmit={createBatch}
         initalProducts={products}

@@ -29,13 +29,9 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="w-full gap-2">
-      <BatchView
-        batch={batch as BatchWithRelation}
-        onDelete={handleOpenDeleteDialog}
-        onEdit={handleOpenEditForm}
-      />
+      <BatchView batchId={param.id as string} />
 
-      <BatchModal
+      {/* <BatchModal
         open={openEditForm}
         initialData={batch}
         onOpenChange={handleOpenEditForm}
@@ -50,7 +46,7 @@ export default function Page({ params }: { params: { id: string } }) {
         onDelete={removeBatch}
         onOpenChange={handleOpenDeleteDialog}
         open={openDeleteDialog}
-      />
+      /> */}
     </div>
   );
 }

@@ -14,13 +14,13 @@ import { getBatchStatus } from "../utils";
 import { SearchBatchesForm } from "./SearchBatchesForm";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { SearchValues } from "../schemas/schemas";
+import { SearchValues } from "../schema/schemas";
 import { ProductWithRelation } from "@/features/products";
 import { useEffect, useState } from "react";
 
 type Props = {
   batches: any[];
-  onAddBatch?: () => void;
+  onAddBatch?: (open:boolean) => void;
   onEdit?: (product: Batch) => void;
   display?: boolean;
   filterBatch?: (data: SearchValues) => void;
@@ -35,13 +35,7 @@ export function BatchesTable({
   filterBatch,
   product,
 }: Props) {
-  const [p, setProduct] = useState<ProductWithRelation | null>();
-
-  useEffect(() => {
-    if (product) {
-      setProduct(product);
-    }
-  }, [null]);
+ 
 
   return (
     <Card>
@@ -51,7 +45,7 @@ export function BatchesTable({
             <h2 className="text-lg font-semibold">Batches</h2>
             {display && (
               <div className="flex gap-2">
-                <Button onClick={onAddBatch}>Create Batch</Button>
+                <Button onClick={()=>onAddBatch!(true)}>Create Batch</Button>
               </div>
             )}
           </div>

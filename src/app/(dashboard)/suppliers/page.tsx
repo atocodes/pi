@@ -1,4 +1,6 @@
 "use client";
+import { ErrorDialog } from "@/components/ErrorDialog";
+import { TableSkeleton } from "@/components/TableSkeleton";
 import {
   Supplier,
   SupplierModal,
@@ -23,6 +25,10 @@ export default function Page() {
     setSupplier(s);
     setOpen(true);
   };
+
+  if (loading) return <TableSkeleton />;
+  if (error) return <ErrorDialog open={true} message={error} />;
+
   return (
     <div className="w-full p-3.5">
       <SuppliersTable

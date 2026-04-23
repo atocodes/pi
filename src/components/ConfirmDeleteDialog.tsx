@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Product } from "../features/products/types";
 import { Button } from "@/components/ui/button";
-import { Customer } from "@/features/cutomers/types";
+import { Customer } from "@/features/customers/types";
 import { Batch } from "@/features/batches";
 
 export default function ConfirmDeleteDailog({

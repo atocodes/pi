@@ -1,11 +1,11 @@
 import { Batch, BatchWithRelation, SearchBatchParms } from "@/features/batches";
-import { BatchRepo } from "../interfaces/batches.repo";
-import { BatchRepositoryImpl } from "../repository/batches.repository.impl";
+import { BatchRepo } from "../interfaces/batch.repo";
+import { BatchRepoImpl } from "../repositories/batch.repo.impl";
 
 export class BatchesService implements BatchRepo {
-  repo: BatchRepositoryImpl;
+  repo: BatchRepoImpl;
 
-  constructor(batchRepo: BatchRepositoryImpl) {
+  constructor(batchRepo: BatchRepoImpl) {
     this.repo = batchRepo;
   }
 

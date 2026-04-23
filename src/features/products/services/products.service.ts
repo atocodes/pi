@@ -1,5 +1,5 @@
 import { convertSortEnumToCamelCase } from "@/lib/utils";
-import { SearchProductValues } from "../schemas/product.schema";
+import { SearchProductValues } from "../schema/product.schema";
 
 export const createNewProduct = async (data: any): Promise<any> => {
   const res = await fetch("/api/products", {

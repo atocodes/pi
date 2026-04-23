@@ -1,5 +1,5 @@
-import { SearchCustomerType } from "@/features/cutomers";
-import { customerService } from "@/server/customers/services/customers.service";
+import { SearchCustomerType } from "@/features/customers";
+import { customerService } from "@/server/customers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     const params : SearchCustomerType = {
       ...Object.fromEntries(searchParams.entries())
     }
-    const customers = await customerService.getCustomers(params);
+    const customers = await customerService.findAll(params);
     return NextResponse.json(customers, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: Request) {
   try {
     const data = await req.json();
-    const customer = await customerService.createCustomer(data);
+    const customer = await customerService.create(data);
 
     return NextResponse.json(customer, { status: 200 });
   } catch (error) {

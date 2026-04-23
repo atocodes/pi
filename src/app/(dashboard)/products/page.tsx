@@ -1,5 +1,7 @@
 "use client";
 
+import { ErrorDialog } from "@/components/ErrorDialog";
+import { TableSkeleton } from "@/components/TableSkeleton";
 import { StockMovementForm } from "@/features/movement";
 import {
   useProducts,
@@ -31,8 +33,8 @@ export default function InventoryPage() {
     setOpen(true);
   };
 
-  // if (loading) return <p>Loading</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <TableSkeleton />;
+  if (error) return <ErrorDialog open={true} message={error} />;
 
   return (
     <div className="lg:md-5 lg:w-full ">

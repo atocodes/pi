@@ -1,6 +1,6 @@
 import { Movement, SearchMovementParams } from "@/features/movement";
 import { MovementsRepo } from "../interfaces/movement.repo";
-import { MovementRepoImpl } from "../repository/movement.repo.impl";
+import { MovementRepoImpl } from "../repositories/movement.repo.impl";
 
 export class MovementService implements MovementsRepo {
   repo: MovementRepoImpl;

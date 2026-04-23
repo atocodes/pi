@@ -2,12 +2,12 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
 import z from "zod";
-import { searchSchema, SearchValues } from "../schemas/schemas";
+import { searchSchema, SearchValues } from "../schema/schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SearchBatchParms } from "../types";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useBatches } from "../hooks/use-batches";
+import { useBatches } from "../hooks/batches.hook";
 import { useEffect } from "react";
 import { orderValues, sortValues } from "@/lib/constants";
 
