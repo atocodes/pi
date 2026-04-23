@@ -1,7 +1,5 @@
 "use client";
 
-import { useBatches } from "@/features/batches";
-
 import { ProductView } from "@/features/products";
 import { useParams } from "next/navigation";
 

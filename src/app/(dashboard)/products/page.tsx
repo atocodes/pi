@@ -9,7 +9,7 @@ import {
   Product,
   ProductModal,
 } from "@/features/products";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function InventoryPage() {
   const { products, loading, error, createProduct, updateProduct, setFilters } =
