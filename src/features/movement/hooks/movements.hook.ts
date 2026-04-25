@@ -6,7 +6,7 @@ import { MovementClientService } from "../services/movement.service";
 export function useMovements() {
   const [movements, setMovemets] = useState<MovementWithRelation[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string|undefined>();
   const [filters, setFilters] = useState<SearchMovementParams | undefined>();
   const movementService = new MovementClientService();
 

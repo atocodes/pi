@@ -37,6 +37,7 @@ export async function DELETE(
     const movement = await movementService.delete(param.id);
     return NextResponse.json(movement, { status: 200 });
   } catch (error: any) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.log(error)
+    return NextResponse.json({error}, { status: 500 });
   }
 }

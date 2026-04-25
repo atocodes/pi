@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
       ...Object.fromEntries(searchParams.entries()),
     };
     const movements = await movementService.find(param);
-    return NextResponse.json({ data: movements }, { status: 200 });
+    return NextResponse.json(movements, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error }, { status: 500 });
   }
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   try {
     const data = await req.json();
     const movement = await movementService.create(data);
-    return NextResponse.json({ movement }, { status: 200 });
+    return NextResponse.json(movement, { status: 200 });
   } catch (error: any) {
      console.log(error)
     return NextResponse.json({ error }, { status: 500 });

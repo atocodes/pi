@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export function useMovement(id: string) {
   const [movement, setMovemet] = useState<MovementWithRelation | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string|undefined>();
   const movementService = new MovementClientService();
   const router = useRouter();
 
