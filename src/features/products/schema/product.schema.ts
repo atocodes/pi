@@ -1,7 +1,7 @@
 // Validation Schema (Zod)
 
 import { z } from "zod";
-import { Unit } from "../../../../generated/prisma/enums";
+import { Unit } from "../../../../generated/prisma-client";
 
 export const unitValues = Object.values(Unit) as [string, ...string[]];
 

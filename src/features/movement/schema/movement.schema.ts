@@ -1,5 +1,5 @@
 import z from "zod";
-import { MovementType, PaymentType } from "../../../../generated/prisma/enums";
+import { MovementType, PaymentType } from "../../../../generated/prisma-client";
 
 export const paymentTypeValues = Object.values(PaymentType) as [
   string,

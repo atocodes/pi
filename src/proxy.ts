@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { LOGINTOKEN } from "./lib/constants";
 import { prisma } from "./lib/prisma";
-import { AccountRole } from "../generated/prisma/enums";
 import * as bcrypt from "bcrypt";
 import { SALTROUND } from "./env";
+import { AccountRole } from "../generated/prisma-client";
 
 export async function proxy(request: NextRequest) {
   const token = request.cookies.get(LOGINTOKEN);
