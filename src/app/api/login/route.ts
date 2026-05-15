@@ -26,6 +26,7 @@ export async function POST(req: Request) {
       user,
     });
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { message: error ? `${error}` : "Error logggin in user" },
       { status: 500 },
