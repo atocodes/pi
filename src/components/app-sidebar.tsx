@@ -30,7 +30,7 @@ export default function AppSidebar() {
     { title: "Customers", url: "/customers", icon: Users },
     { title: "Suppliers", url: "/suppliers", icon: Truck },
     { title: "Movement History", url: "/movements", icon: History },
-    { title: "Customer Creadits", url: "/customerCreadits", icon: HandCoins },
+    // { title: "Customer Creadits", url: "/customerCreadits", icon: HandCoins },
   ];
   return (
     <Sidebar>
