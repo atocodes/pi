@@ -35,6 +35,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("HELLO SHIPLOG");
   return (
     <html
       lang="en"
